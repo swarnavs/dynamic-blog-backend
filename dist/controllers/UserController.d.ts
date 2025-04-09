@@ -8,4 +8,5 @@ export declare class UserController {
     static sendResetPasswordEmail(req: any, res: any, next: any): Promise<void>;
     static verifyResetPasswordToken(req: any, res: any, next: any): void;
     static updateProfilePic(req: any, res: any, next: any): Promise<void>;
+    static updateProfile(req: any, res: any, next: any): Promise<void>;
 }

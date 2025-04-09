@@ -27,6 +27,7 @@ class UserRouter {
         this.router.patch("/update/password", GlobalMiddleWare_1.GlobalMiddleWare.authenticate, UserValidators_1.UserValidators.updatePassword(), GlobalMiddleWare_1.GlobalMiddleWare.checkError, UserController_1.UserController.updatePassword);
         this.router.patch("/reset/password", UserValidators_1.UserValidators.resetPassword(), GlobalMiddleWare_1.GlobalMiddleWare.checkError, UserController_1.UserController.resetPassword);
         this.router.patch("/update/profilePic", GlobalMiddleWare_1.GlobalMiddleWare.authenticate, new Utils_1.Utils().multer.single("profile_pic"), UserValidators_1.UserValidators.updateProfilePic(), GlobalMiddleWare_1.GlobalMiddleWare.checkError, UserController_1.UserController.updateProfilePic);
+        this.router.patch("/update/profile", GlobalMiddleWare_1.GlobalMiddleWare.authenticate, UserValidators_1.UserValidators.updateProfile(), GlobalMiddleWare_1.GlobalMiddleWare.checkError, UserController_1.UserController.updateProfile);
     }
     deleteRoutes() { }
 }

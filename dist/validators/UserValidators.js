@@ -152,5 +152,8 @@ class UserValidators {
             }),
         ];
     }
+    static updateProfile() {
+        return [(0, express_validator_1.body)("username", "Username is Required").isString()];
+    }
 }
 exports.UserValidators = UserValidators;

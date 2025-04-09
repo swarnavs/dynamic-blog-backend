@@ -18,7 +18,6 @@ const env_1 = require("../environments/env");
 class UserController {
     static signUp(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
             const email = req.body.email;
             const username = req.body.username;
             const password = req.body.password;
@@ -185,6 +184,22 @@ class UserController {
                 const user = yield User_1.default.findOneAndUpdate({ _id: userId }, {
                     updated_at: new Date(),
                     profile_pic_url: fileUrl,
+                }, { new: true });
+                res.send(user);
+            }
+            catch (e) {
+                next(e);
+            }
+        });
+    }
+    static updateProfile(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userId = req.user.user_id;
+            const userName = req.body.username;
+            try {
+                const user = yield User_1.default.findOneAndUpdate({ _id: userId }, {
+                    updated_at: new Date(),
+                    username: userName,
                 }, { new: true });
                 res.send(user);
             }

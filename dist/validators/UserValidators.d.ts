@@ -7,4 +7,5 @@ export declare class UserValidators {
     static sendResetPasswordEmail(): import("express-validator").ValidationChain[];
     static verifyResetPasswordToken(): import("express-validator").ValidationChain[];
     static updateProfilePic(): import("express-validator").ValidationChain[];
+    static updateProfile(): import("express-validator").ValidationChain[];
 }
