@@ -79,6 +79,13 @@ class UserRouter {
       GlobalMiddleWare.checkError,
       UserController.updateProfilePic
     );
+    this.router.patch(
+      "/update/profile",
+      GlobalMiddleWare.authenticate,
+      UserValidators.updateProfile(),
+      GlobalMiddleWare.checkError,
+      UserController.updateProfile
+    );
   }
 
   deleteRoutes() {}

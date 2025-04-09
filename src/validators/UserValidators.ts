@@ -150,4 +150,8 @@ export class UserValidators {
       }),
     ];
   }
+
+  static updateProfile() {
+    return [body("username", "Username is Required").isString()];
+  }
 }

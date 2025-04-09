@@ -6,7 +6,6 @@ import { getEnvironmentVariables } from "../environments/env";
 
 export class UserController {
   static async signUp(req: any, res: any, next: any) {
-    console.log(req.body);
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
@@ -189,6 +188,24 @@ export class UserController {
         {
           updated_at: new Date(),
           profile_pic_url: fileUrl,
+        },
+        { new: true }
+      );
+      res.send(user);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  static async updateProfile(req, res, next) {
+    const userId = req.user.user_id;
+    const userName = req.body.username;
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: userId },
+        {
+          updated_at: new Date(),
+          username: userName,
         },
         { new: true }
       );
