@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as cors from "cors";
 import { getEnvironmentVariables } from "./environments/env";
 import * as mongoose from "mongoose";
 import UserRouter from "./routers/UserRouter";
@@ -20,6 +21,7 @@ export class Server {
   setConfigurations() {
     this.connectMongoDb();
     this.configureBodyParser();
+    this.configureCors();
     Jobs.runRequiredJobs();
   }
 
@@ -37,6 +39,17 @@ export class Server {
 
   configureBodyParser() {
     this.app.use(bodyParser.urlencoded({ extended: true }));
+  }
+
+  configureCors() {
+    // Allow all origins or you can specify specific origins as needed
+    this.app.use(
+      cors({
+        origin: "*", // Allows all origins, replace with a specific origin or list for security if needed
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
+        allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+      })
+    );
   }
 
   setRoutes() {

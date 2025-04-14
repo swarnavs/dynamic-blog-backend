@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express = require("express");
+const cors = require("cors");
 const env_1 = require("./environments/env");
 const mongoose = require("mongoose");
 const UserRouter_1 = require("./routers/UserRouter");
@@ -20,6 +21,7 @@ class Server {
     setConfigurations() {
         this.connectMongoDb();
         this.configureBodyParser();
+        this.configureCors();
         Jobs_1.Jobs.runRequiredJobs();
     }
     connectMongoDb() {
@@ -35,6 +37,14 @@ class Server {
     }
     configureBodyParser() {
         this.app.use(bodyParser.urlencoded({ extended: true }));
+    }
+    configureCors() {
+        // Allow all origins or you can specify specific origins as needed
+        this.app.use(cors({
+            origin: "*", // Allows all origins, replace with a specific origin or list for security if needed
+            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
+            allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+        }));
     }
     setRoutes() {
         this.app.use("/src/uploads", express.static("src/uploads"));
