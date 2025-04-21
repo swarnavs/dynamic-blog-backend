@@ -25,7 +25,7 @@ export class PostController {
   static async getPostByUser(req, res, next) {
     const userId = req.user.user_id;
     const page = parseInt(req.query.page) || 1;
-    const perPage = 2;
+    const perPage = 6;
     let currentPage = page;
     let prevPage = page === 1 ? null : page - 1;
     let pageToken = page + 1;
@@ -41,6 +41,7 @@ export class PostController {
       }
       const posts = await Post.find({ user_id: userId }, { __v: 0, user_id: 0 })
         .populate("comments")
+        .sort({ created_at: -1 })
         .skip(perPage * page - perPage)
         .limit(perPage);
       res.json({
@@ -73,6 +74,7 @@ export class PostController {
       }
       const posts: any = await Post.find({}, { __v: 0, user_id: 0 })
         .populate("comments")
+        .sort({ created_at: -1 })
         .skip(perPage * page - perPage)
         .limit(perPage);
       res.json({

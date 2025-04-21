@@ -36,7 +36,7 @@ class PostController {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.user.user_id;
             const page = parseInt(req.query.page) || 1;
-            const perPage = 2;
+            const perPage = 6;
             let currentPage = page;
             let prevPage = page === 1 ? null : page - 1;
             let pageToken = page + 1;
@@ -52,6 +52,7 @@ class PostController {
                 }
                 const posts = yield Post_1.default.find({ user_id: userId }, { __v: 0, user_id: 0 })
                     .populate("comments")
+                    .sort({ created_at: -1 })
                     .skip(perPage * page - perPage)
                     .limit(perPage);
                 res.json({
@@ -86,6 +87,7 @@ class PostController {
                 }
                 const posts = yield Post_1.default.find({}, { __v: 0, user_id: 0 })
                     .populate("comments")
+                    .sort({ created_at: -1 })
                     .skip(perPage * page - perPage)
                     .limit(perPage);
                 res.json({
